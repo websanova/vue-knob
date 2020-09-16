@@ -1,0 +1,50 @@
+{
+    "name": "@websanova/vue-knob",
+
+    "description": "A simple, light weight and intuitive knob component for Vue.js.",
+  
+    "keywords": ["vue", "vue.js", "vuejs", "plugin", "component", "knob", "dial", "switch", "tuner"],
+
+    "homepage": "https://websanova.com/docs/vue-knob",
+
+    "author": {
+        "name": "Websanova",
+        "url": "http://websanova.com",
+        "username": "websanova",
+        "email": "rob@websanova.com"
+    },
+  
+    "main": "dist/vue-knob.common.js",
+    "module": "dist/vue-knob.module.js",
+    "unpkg": "dist/vue-knob.min.js",
+    "jsdelivr": "dist/vue-knob.min.js",
+  
+    "version": "0.1.0",
+  
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/websanova/vue-knob"
+    },
+  
+    "licenses": "MIT, GPL",
+
+    "scripts": {
+        "clear": "rm -rf dist/*",
+        "build": "npm run clear; node build/build.js"
+    },
+
+    "devDependencies": {
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.2.0",
+        "babel-loader": "^8.0.4",
+        "uglify-js": "^3.4.9",
+        "rollup": "^0.66.0",
+        "rollup-plugin-babel": "^4.1.0",
+        "rollup-plugin-replace": "^2.1.0"
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    }
+}
