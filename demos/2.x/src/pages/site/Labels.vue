@@ -110,5 +110,9 @@
         > .knob-label-anchor.hover:not(.active) > .knob-label {
             color: blue;
         }
+
+        > .knob-label-anchor > .knob-label:hover {
+            color: #333;
+        }
     }
 </style>
