@@ -14,10 +14,7 @@
         "email": "rob@websanova.com"
     },
   
-    "main": "dist/vue-knob.common.js",
-    "module": "dist/vue-knob.module.js",
-    "unpkg": "dist/vue-knob.min.js",
-    "jsdelivr": "dist/vue-knob.min.js",
+    "main": "src/index.js",
   
     "version": "0.1.0",
   
@@ -29,8 +26,7 @@
     "licenses": "MIT, GPL",
 
     "scripts": {
-        "clear": "rm -rf dist/*",
-        "build": "npm run clear; node build/build.js"
+
     },
 
     "devDependencies": {

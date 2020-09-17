@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div
+        style="max-width:500px; margin:0 auto 50px auto;"
+    >
         <h1 class="text-center">
             <a href="https://websanova.com">
                 <img src="/img/logo-dark-text.png" height="30" />
@@ -12,6 +14,18 @@
             Vue Knob Component Demo
         </h1>
 
+        <hr/>
+        
+        <div class="text-center">
+            <a href="https://websanova.com/docs/vue-knob"><b>DOCS</b></a> |
+            <a href="https://github.com/websanova/vue-knob"><b>GITHUB</b></a> |
+            <a href="https://patreon.com/websanova"><b>PATREON</b></a>
+        </div>
+        
+        <hr/>
+
+        <br/>
+
         <div
             class="text-center"
         >
@@ -21,7 +35,7 @@
                 default
             </router-link>
 
-            |
+            <span class="text-muted">&bull;</span>
 
             <router-link
                 :to="{name: 'site-sizes'}"
@@ -29,7 +43,7 @@
                 sizes
             </router-link>
 
-            |
+            <span class="text-muted">&bull;</span>
 
             <router-link
                 :to="{name: 'site-labels'}"
@@ -45,7 +59,7 @@
                 html
             </router-link>
 
-            |
+            <span class="text-muted">&bull;</span>
 
             <router-link
                 :to="{name: 'site-angles'}"
@@ -53,7 +67,7 @@
                 angles
             </router-link>
 
-            |
+            <span class="text-muted">&bull;</span>
 
             <router-link
                 :to="{name: 'site-dial'}"
@@ -70,9 +84,7 @@
 
         <br/>
 
-        <div
-            class="content"
-        >
+        <div>
             <router-view />
         </div>
     </div>
@@ -101,10 +113,8 @@
         text-align: center;
     }
 
-    .content {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 0 20px;
+    .text-muted {
+        color: #aeaeae;
     }
 
     button {
