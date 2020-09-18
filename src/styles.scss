@@ -183,12 +183,3 @@
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
 }
-
-/*
- * NOTE: Sets angle rotation for every angle.
- */
-
-// @for $i from 0 through 360 {
-//     .knob-label-anchor-#{$i} {transform: rotate(#{$i}deg);}
-//     .knob-label-anchor-#{$i} > .knob-label {transform: rotate(-#{$i}deg);}
-// }

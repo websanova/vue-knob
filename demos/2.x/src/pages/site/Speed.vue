@@ -12,6 +12,7 @@
             <vue-knob
                 v-model="knob.value"
                 :options="knob.options"
+                :min-speed="knob.minSpeed"
             />
 
             <br/><br/>
@@ -35,13 +36,15 @@
             return {
                 knobs: {
                     test1: {
-                        value: 3,
-                        options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        value: 'this',
+                        options: ['this', 'knob', 'speed', 'is', 'very', 'fast'],
+                        minSpeed: 0.01
                     },
 
                     test2: {
-                        value: 'seven',
-                        options: ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
+                        value: 'speed',
+                        options: ['this', 'is', 'a', 'really', 'slow', 'speed'],
+                        minSpeed: 5
                     }
                 }
             };

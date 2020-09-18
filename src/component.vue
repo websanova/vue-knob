@@ -9,6 +9,7 @@
     >
         <div
             v-for="(option, index) in _options"
+            v-if="option.anchor === true"
             :key="index"
             class="knob-label-anchor"
             v-bind:class="[
@@ -17,19 +18,20 @@
                 getLabelActive(index) ? 'active' : '',
                 getLabelHover(index) ? 'hover' : '',
             ]"
+            v-bind:style="{
+                transform: 'rotate(' + option.angle + 'deg)'
+            }"
         >
             <div
+                v-if="option.label !== false"
                 class="knob-label"
+                v-bind:style="{
+                    transform: 'rotate(-' + option.angle + 'deg)'
+                }"
                 v-on:click.stop="toggle(index)"
             >
                 <div
-                    v-if="option.html"
-                    v-html="option.html"
-                />
-
-                <div
-                    v-else
-                    v-html="option.label"
+                    v-html="option.html || option.label"
                 />
             </div>
         </div>
@@ -184,14 +186,16 @@
 
                 for (; i < ii; i++) {
                     ((i) => {
-                        var value = this.options[i][this.valueKey] !== undefined ? this.options[i][this.valueKey] : this.options[i];
-                        var label = this.options[i][this.labelKey] !== undefined ? this.options[i][this.labelKey] : value;
-                        var angle = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + Math.round(this._rotation * i);
+                        var value  = this.options[i][this.valueKey] !== undefined ? this.options[i][this.valueKey] : this.options[i];
+                        var label  = this.options[i][this.labelKey] !== undefined ? this.options[i][this.labelKey] : value;
+                        var angle  = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + Math.round(this._rotation * i);
+                        var anchor = (this.options[i].anchor === false || (this.options[i][this.labelKey] === false && this.options[i].anchor !== true)) ? false : true;
 
                         options.push({
                             value: value,
                             html: this.options[i].html,
                             label: label,
+                            anchor: anchor,
                             labelPosition: this.getLabelPosition(angle),
                             angle: angle,
                             original: this.options[i]

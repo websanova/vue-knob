@@ -25,6 +25,10 @@ Vue.router = new VueRouter({
         name: 'site-sizes',
         component: loadView('site/Sizes'),
     }, {
+        path: '/speed',
+        name: 'site-speed',
+        component: loadView('site/Speed'),
+    }, {
         path: '/labels',
         name: 'site-labels',
         component: loadView('site/Labels'),
@@ -36,6 +40,10 @@ Vue.router = new VueRouter({
         path: '/angles',
         name: 'site-angles',
         component: loadView('site/Angles'),
+    }, {
+        path: '/ranges',
+        name: 'site-ranges',
+        component: loadView('site/Ranges'),
     }, {
         path: '/dial',
         name: 'site-dial',

@@ -46,6 +46,14 @@
             <span class="text-muted">&bull;</span>
 
             <router-link
+                :to="{name: 'site-speed'}"
+            >
+                speed
+            </router-link>
+
+            <span class="text-muted">&bull;</span>
+
+            <router-link
                 :to="{name: 'site-labels'}"
             >
                 labels
@@ -65,6 +73,14 @@
                 :to="{name: 'site-angles'}"
             >
                 angles
+            </router-link>
+
+            <span class="text-muted">&bull;</span>
+
+            <router-link
+                :to="{name: 'site-ranges'}"
+            >
+                ranges
             </router-link>
 
             <span class="text-muted">&bull;</span>
@@ -121,10 +137,5 @@
         padding: 5px 7px;
         margin: 2px;
         font-size: 10px;
-    }
-
-    @for $i from 0 through 360 {
-        .knob-label-anchor-#{$i} {transform: rotate(#{$i}deg);}
-        .knob-label-anchor-#{$i} > .knob-label {transform: rotate(-#{$i}deg);}
     }
 </style>

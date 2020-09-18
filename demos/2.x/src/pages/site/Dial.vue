@@ -10,7 +10,7 @@
             <br/>
 
             <vue-knob
-                :variant="key"
+                :variant="'dial-' + key"
                 v-model="knob.value"
                 :start-angle="knob.startAngle"
                 :end-angle="knob.endAngle"
@@ -63,7 +63,7 @@
 </script>
 
 <style lang="scss">
-    .knob-test1 {
+    .knob-dial-test1 {
         border-width: 1px;
         border-color: #eaeaea;
 
@@ -91,7 +91,7 @@
         }
     }
 
-    .knob-test2 {
+    .knob-dial-test2 {
         > .knob-dial {
             padding: 30px;
 
