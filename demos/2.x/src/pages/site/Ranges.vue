@@ -118,7 +118,6 @@
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
-                border: solid #acacac 1px;
             }
 
             > .knob-dial-anchor {
