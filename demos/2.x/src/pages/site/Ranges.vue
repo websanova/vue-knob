@@ -26,7 +26,7 @@
             <button
                 v-for="option in knob.options"
                 @click="knob.value = option"
-                :disabled="option === knob.value"
+                :disabled="option.value === knob.value"
             >
                 {{ option.value }}
             </button>
