@@ -10,9 +10,10 @@
             <br/>
 
             <vue-knob
-                v-model="knob.value"
+                :value="knob.value"
                 :variant="'ranges-' + key"
                 :options="knob.options"
+                @input="knob.value = $event.value"
             >
                 <div
                     slot="dial"
@@ -25,8 +26,8 @@
 
             <button
                 v-for="option in knob.options"
-                @click="knob.value = option"
-                :disabled="option.value === knob.value.value"
+                @click="knob.value = option.value"
+                :disabled="option.value === knob.value"
             >
                 {{ option.value }}
             </button>
