@@ -21,6 +21,13 @@
                     class="knob-dial-inner"
                     v-html="knob.html"
                 />
+
+                <div
+                    class="knob-current"
+                    v-if="knob.current"
+                >
+                    {{ knob.value }}
+                </div>
             </vue-knob>
 
             <br/><br/>
@@ -46,7 +53,8 @@
                     test1: {
                         value: 200,
                         options: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-                        html: ''
+                        html: '',
+                        current: true
                     },
 
                     test2: {
@@ -63,6 +71,16 @@
 </script>
 
 <style lang="scss">
+    .knob-dial-test1 {
+        > .knob-current {
+            position: absolute;
+            left: 23px;
+            top: 42px;
+            width: 50px;
+            z-index: 1000;
+        }
+    }
+
     .knob-dial-test1 {
         border-width: 1px;
         border-color: #eaeaea;
