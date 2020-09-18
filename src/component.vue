@@ -31,7 +31,7 @@
                 v-on:click.stop="toggle(index)"
             >
                 <div
-                    v-html="option.html || option.label"
+                    v-html="option.label"
                 />
             </div>
         </div>
@@ -193,7 +193,6 @@
 
                         options.push({
                             value: value,
-                            html: this.options[i].html,
                             label: label,
                             anchor: anchor,
                             labelPosition: this.getLabelPosition(angle),
