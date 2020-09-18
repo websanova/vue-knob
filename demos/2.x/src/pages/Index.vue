@@ -78,17 +78,17 @@
             <span class="text-muted">&bull;</span>
 
             <router-link
-                :to="{name: 'site-ranges'}"
+                :to="{name: 'site-dial'}"
             >
-                ranges
+                dial
             </router-link>
 
             <span class="text-muted">&bull;</span>
 
             <router-link
-                :to="{name: 'site-dial'}"
+                :to="{name: 'site-ranges'}"
             >
-                dial
+                ranges
             </router-link>
         </div>
 

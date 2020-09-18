@@ -41,13 +41,13 @@ Vue.router = new VueRouter({
         name: 'site-angles',
         component: loadView('site/Angles'),
     }, {
-        path: '/ranges',
-        name: 'site-ranges',
-        component: loadView('site/Ranges'),
-    }, {
         path: '/dial',
         name: 'site-dial',
         component: loadView('site/Dial'),
+    }, {
+        path: '/ranges',
+        name: 'site-ranges',
+        component: loadView('site/Ranges'),
     }]
 });
 
