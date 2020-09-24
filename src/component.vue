@@ -104,14 +104,14 @@
                 default: 330
             },
 
+            skipAngle: {
+                type: Number,
+                default: 150
+            },
+
             anchorOffset: {
                 type: Number,
                 default: 0
-            },
-
-            indexSkip: {
-                type: Number,
-                default: null
             },
 
             minSpeed: {
@@ -168,15 +168,6 @@
 
             _indexHover() {
                 return this.getIndexActive(this.anchorAngle);
-            },
-
-            _indexSkip() {
-                return this.indexSkip === null
-                    ? this._options.length / 2
-                    : (this.indexSkip === 0
-                        ? this._options.length 
-                        : this.indexSkip
-                    );
             },
 
             _options() {
@@ -343,23 +334,20 @@
 
                 var anchorIndex = null;
                 var anchorAngle = this.anchorAngle;
-
+                                
                 if (angle < this._options[0].angle) {
                     anchorAngle = this._options[0].angle;
                 }
                 else if (angle > this._options[this._options.length - 1].angle) {
                     anchorAngle = this._options[this._options.length - 1].angle;
                 }
-                else {
+                else if (Math.abs(angle - anchorAngle) <= this.skipAngle) {
                     anchorAngle = Math.round(angle * 100) / 100;
-                }
-
-                anchorIndex = this.getIndexActive(anchorAngle);
-
-                if (Math.abs(index - anchorIndex) <= this._indexSkip) {
-                    this.setAnchorAngle(anchorAngle);
-
+                    
+                    anchorIndex = this.getIndexActive(anchorAngle);
                     this.drag.i = anchorIndex;
+                    
+                    this.setAnchorAngle(anchorAngle);
                 }
 
                 this.$emit('hover', this._options[this._indexHover].original);
