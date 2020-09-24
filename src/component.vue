@@ -124,6 +124,11 @@
                 default: false,
             },
 
+            sliderSnapTo: {
+                type: Boolean,
+                default: false,
+            },
+
             sliderStepBy: {
                 type: Number,
                 default: 1
@@ -132,6 +137,8 @@
 
         data() {
             return {
+                valueInternal: null,
+                
                 anchorAngle: 0,
 
                 anchorAngleDistance: 0,
@@ -159,16 +166,18 @@
                     option,
                     index = null;
 
-                for (; i < ii; i++) {
-                    option = this._options[i];
+                if (!this.slider) {
+                    for (; i < ii; i++) {
+                        option = this._options[i];
 
-                    if (
-                        option.value === this.value ||
-                        (option.value !== undefined && this.value !== undefined && this.value !== null && option.value === this.value[this.valueKey])
-                    ) {
-                        index = i;
+                        if (
+                            option.value === this.value ||
+                            (option.value !== undefined && this.value !== undefined && this.value !== null && option.value === this.value[this.valueKey])
+                        ) {
+                            index = i;
 
-                        break;
+                            break;
+                        }
                     }
                 }
 
@@ -202,13 +211,20 @@
             },
 
             value(val) {
-                if (this.slider && this.value !== val) {
-                    this.processAngle(val);
+                if (
+                    this.slider && 
+                    (this.sliderSnapTo || val !== this.valueInternal)
+                ) {
+                    this.processAngle(this.processValue(val), true);
                 }
+
+                this.valueInternal = val;
             }
         },
 
         mounted() {
+            this.valueInternal = this.value;
+
             if (!this.slider) {
                 this.setAnchorAngle(((this._options[this._index] || {}).angle || 0) + this.anchorOffset);
             }
@@ -219,12 +235,17 @@
 
         methods: {
             toggle(index) {
+                var option;
+
                 if (index === undefined) {
                     index = this.options[this._index + 1] ? this._index + 1 : 0;
                 }
 
                 if (index !== this._index) {
-                    this.$emit('input', !this.slider ? this._options[index].original : this._options.[index].value);
+                    option = this._options[index];
+
+                    this.setAnchorAngle(option.angle);
+                    this.$emit('input', !this.slider ? option.original : option.value);
                 }
             },
 
@@ -327,11 +348,11 @@
                 return (value - this._options[0].value) / (this._options[this.options.length - 1].value - this._options[0].value) * (this._options[this.options.length - 1].angle - this._options[0].angle) + this._options[0].angle;
             },
 
-            processAngle(angle) {
+            processAngle(angle, isAngleChange) {
                 var value       = null;
                 var anchorIndex = null;
                 var anchorAngle = this.anchorAngle;
-                var angleChange = Math.abs(angle - anchorAngle) <= this.skipAngle;
+                var angleChange = isAngleChange || Math.abs(angle - anchorAngle) <= this.skipAngle;
 
                 if (isNaN(angle) || angleChange) {
                     if (isNaN(angle) || angle < this._options[0].angle) {
@@ -403,7 +424,8 @@
             },
 
             onDragEnd () {
-                var index;
+                var index,
+                    value;
 
                 if (!this.slider) {
                     index = this.getIndexActive(this.anchorAngle);
@@ -412,7 +434,8 @@
                     this.setAnchorAngle(this._options[index].angle);
                 }
                 else {
-                    this.$emit('input', this.processAngle(this.anchorAngle));
+                    this.valueInternal = this.processAngle(this.anchorAngle);
+                    this.$emit('input', this.valueInternal);
                 }
 
                 this.isDragging = false;
