@@ -49,9 +49,9 @@ Vue.router = new VueRouter({
         name: 'site-ranges',
         component: loadView('site/Ranges'),
     }, {
-        path: '/nosnap',
-        name: 'site-nosnap',
-        component: loadView('site/NoSnap'),
+        path: '/slider',
+        name: 'site-slider',
+        component: loadView('site/Slider'),
     }]
 });
 

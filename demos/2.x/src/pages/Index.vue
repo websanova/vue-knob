@@ -94,9 +94,9 @@
             <span class="text-muted">&bull;</span>
 
             <router-link
-                :to="{name: 'site-nosnap'}"
+                :to="{name: 'site-slider'}"
             >
-                no-snap
+                slider
             </router-link>
         </div>
 
