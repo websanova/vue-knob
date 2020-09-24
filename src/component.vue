@@ -177,19 +177,7 @@
 
                 for (; i < ii; i++) {
                     ((i) => {
-                        var value  = this.options[i][this.valueKey] !== undefined ? this.options[i][this.valueKey] : this.options[i];
-                        var label  = this.options[i][this.labelKey] !== undefined ? this.options[i][this.labelKey] : value;
-                        var angle  = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + (Math.round(this._rotation * i * 100) / 100);
-                        var anchor = (this.options[i].anchor === false || (this.options[i][this.labelKey] === false && this.options[i].anchor !== true)) ? false : true;
-
-                        options.push({
-                            value: value,
-                            label: label,
-                            anchor: anchor,
-                            labelPosition: this.getLabelPosition(angle),
-                            angle: angle,
-                            original: this.options[i]
-                        });
+                        options.push(this.formatOption(i));
                     })(i);
                 }
 
@@ -218,6 +206,20 @@
                 if (index !== this._index) {
                     this.$emit('input', this._options[index].original);
                 }
+            },
+
+            formatOption(i) {
+                var value = this.options[i][this.valueKey] !== undefined ? this.options[i][this.valueKey] : this.options[i];
+                var angle = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + (Math.round(this._rotation * i * 100) / 100);
+
+                return {
+                    value:         value,
+                    angle:         angle,
+                    label:         this.options[i][this.labelKey] !== undefined ? this.options[i][this.labelKey] : value,
+                    anchor:        (this.options[i].anchor === false || (this.options[i][this.labelKey] === false && this.options[i].anchor !== true)) ? false : true,
+                    labelPosition: this.getLabelPosition(angle),
+                    original:      this.options[i],
+                };
             },
 
             getLabelPosition(angle) {
