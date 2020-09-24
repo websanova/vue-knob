@@ -90,6 +90,14 @@
             >
                 ranges
             </router-link>
+
+            <span class="text-muted">&bull;</span>
+
+            <router-link
+                :to="{name: 'site-nosnap'}"
+            >
+                no-snap
+            </router-link>
         </div>
 
         <br/>

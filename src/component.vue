@@ -117,6 +117,16 @@
             minSpeed: {
                 type: Number,
                 default: 0.2
+            },
+
+            snapTo: {
+                type: Boolean,
+                default: true,
+            },
+
+            stepBy: {
+                type: Number,
+                default: 1
             }
         },
 
@@ -190,11 +200,22 @@
                 if (this._options[val]) {
                     this.setAnchorAngle(this._options[val].angle + this.anchorOffset);
                 }
+            },
+
+            value(val) {
+                if (!this.snapTo) {
+                    this.processAngle(this.processValue(val));
+                }
             }
         },
 
         mounted() {
-            this.setAnchorAngle(((this._options[this._index] || {}).angle || 0) + this.anchorOffset);
+            if (this.snapTo) {
+                this.setAnchorAngle(((this._options[this._index] || {}).angle || 0) + this.anchorOffset);
+            }
+            else {
+                this.processAngle(this.processValue(this.value));
+            }
         },
 
         methods: {
@@ -204,7 +225,7 @@
                 }
 
                 if (index !== this._index) {
-                    this.$emit('input', this._options[index].original);
+                    this.$emit('input', this.snapTo ? this._options[index].original : this._options.[index].value);
                 }
             },
 
@@ -301,6 +322,51 @@
                 this.anchorAngle = angle;
             },
 
+            processValue(value) {
+                value = parseFloat(value);
+
+                return (value - this._options[0].value) / (this._options[this.options.length - 1].value - this._options[0].value) * (this._options[this.options.length - 1].angle - this._options[0].angle) + this._options[0].angle;
+            },
+
+            processAngle(angle) {
+                var value       = null;
+                var anchorIndex = null;
+                var anchorAngle = this.anchorAngle;
+                var angleChange = Math.abs(angle - anchorAngle) <= this.skipAngle;
+
+                if (isNaN(angle) || angleChange) {
+                    if (isNaN(angle) || angle < this._options[0].angle) {
+                        anchorAngle = this._options[0].angle;
+                    }
+                    else if (angle > this._options[this._options.length - 1].angle) {
+                        anchorAngle = this._options[this._options.length - 1].angle;
+                    }
+                    else {
+                        anchorAngle = Math.round(angle * 100) / 100;
+                    }
+                }
+
+                if (this.snapTo) {
+                    anchorIndex = this.getIndexActive(anchorAngle);
+                    this.drag.i = anchorIndex;
+                    
+                    this.setAnchorAngle(anchorAngle);
+
+                    return this._options[this._indexHover].original;
+                }
+                else {
+                    this.setAnchorAngle(anchorAngle);
+
+                    // Get the value first.
+                    value = ((anchorAngle - this.startAngle) / (this.endAngle - this.startAngle)) * (this._options[this.options.length - 1].value - this._options[0].value) + this._options[0].value;
+
+                    // Round to the nearest step.
+                    value = Math.round(value / this.stepBy) * this.stepBy;
+
+                    return value;
+                }
+            },
+
             onDragStart($e) {
                 var anchor = this.getOffset(document.getElementById('knob-dial-anchor-' + this._id));
 
@@ -334,32 +400,21 @@
                     index = this.drag.i,
                     angle = Math.atan2(cX - sX, - (cY -sY) ) * (180 / Math.PI) + 180;
 
-                var anchorIndex = null;
-                var anchorAngle = this.anchorAngle;
-                                
-                if (angle < this._options[0].angle) {
-                    anchorAngle = this._options[0].angle;
-                }
-                else if (angle > this._options[this._options.length - 1].angle) {
-                    anchorAngle = this._options[this._options.length - 1].angle;
-                }
-                else if (Math.abs(angle - anchorAngle) <= this.skipAngle) {
-                    anchorAngle = Math.round(angle * 100) / 100;
-                    
-                    anchorIndex = this.getIndexActive(anchorAngle);
-                    this.drag.i = anchorIndex;
-                    
-                    this.setAnchorAngle(anchorAngle);
-                }
-
-                this.$emit('hover', this._options[this._indexHover].original);
+                this.$emit('hover', this.processAngle(angle));
             },
 
             onDragEnd () {
-                var index = this.getIndexActive(this.anchorAngle);
+                var index;
 
-                this.toggle(index);
-                this.setAnchorAngle(this._options[index].angle);
+                if (this.snapTo) {
+                    index = this.getIndexActive(this.anchorAngle);
+
+                    this.toggle(index);
+                    this.setAnchorAngle(this._options[index].angle);
+                }
+                else {
+                    this.$emit('input', this.processAngle(this.anchorAngle));
+                }
 
                 this.isDragging = false;
                 

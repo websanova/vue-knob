@@ -48,6 +48,10 @@ Vue.router = new VueRouter({
         path: '/ranges',
         name: 'site-ranges',
         component: loadView('site/Ranges'),
+    }, {
+        path: '/nosnap',
+        name: 'site-nosnap',
+        component: loadView('site/NoSnap'),
     }]
 });
 
