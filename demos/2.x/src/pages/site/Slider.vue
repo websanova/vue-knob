@@ -14,9 +14,10 @@
                 :size="knob.size"
                 :step="knob.step"
                 :slider="true"
-                :slider-step-by="0.5"
+                :slider-step-by="1"
                 :variant="'sliders-' + key"
                 :options="knob.options"
+                :start-angle="90"
                 @input="change(knob, $event)"
                 @hover="hoverVal = $event"
             >
