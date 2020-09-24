@@ -119,12 +119,12 @@
                 default: 0.2
             },
 
-            snapTo: {
+            slider: {
                 type: Boolean,
-                default: true,
+                default: false,
             },
 
-            stepBy: {
+            sliderStepBy: {
                 type: Number,
                 default: 1
             }
@@ -203,14 +203,14 @@
             },
 
             value(val) {
-                if (!this.snapTo) {
+                if (this.slider) {
                     this.processAngle(this.processValue(val));
                 }
             }
         },
 
         mounted() {
-            if (this.snapTo) {
+            if (!this.slider) {
                 this.setAnchorAngle(((this._options[this._index] || {}).angle || 0) + this.anchorOffset);
             }
             else {
@@ -225,7 +225,7 @@
                 }
 
                 if (index !== this._index) {
-                    this.$emit('input', this.snapTo ? this._options[index].original : this._options.[index].value);
+                    this.$emit('input', !this.slider ? this._options[index].original : this._options.[index].value);
                 }
             },
 
@@ -346,7 +346,7 @@
                     }
                 }
 
-                if (this.snapTo) {
+                if (!this.slider) {
                     anchorIndex = this.getIndexActive(anchorAngle);
                     this.drag.i = anchorIndex;
                     
@@ -361,7 +361,7 @@
                     value = ((anchorAngle - this.startAngle) / (this.endAngle - this.startAngle)) * (this._options[this.options.length - 1].value - this._options[0].value) + this._options[0].value;
 
                     // Round to the nearest step.
-                    value = Math.round(value / this.stepBy) * this.stepBy;
+                    value = Math.round(Math.round(value / this.sliderStepBy) * this.sliderStepBy * 100) / 100;
 
                     return value;
                 }
@@ -406,7 +406,7 @@
             onDragEnd () {
                 var index;
 
-                if (this.snapTo) {
+                if (!this.slider) {
                     index = this.getIndexActive(this.anchorAngle);
 
                     this.toggle(index);
