@@ -38,7 +38,7 @@
                     test1: {
                         value: 'this',
                         options: ['this', 'knob', 'speed', 'is', 'very', 'fast'],
-                        minSpeed: 0.01
+                        minSpeed: 0.2
                     },
 
                     test2: {
