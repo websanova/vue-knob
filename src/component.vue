@@ -188,7 +188,7 @@
                     ((i) => {
                         var value  = this.options[i][this.valueKey] !== undefined ? this.options[i][this.valueKey] : this.options[i];
                         var label  = this.options[i][this.labelKey] !== undefined ? this.options[i][this.labelKey] : value;
-                        var angle  = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + Math.round(this._rotation * i);
+                        var angle  = this.options[i].angle !== undefined ? this.options[i].angle : this.startAngle + (Math.round(this._rotation * i * 100) / 100);
                         var anchor = (this.options[i].anchor === false || (this.options[i][this.labelKey] === false && this.options[i].anchor !== true)) ? false : true;
 
                         options.push({
@@ -351,7 +351,7 @@
                     anchorAngle = this._options[this._options.length - 1].angle;
                 }
                 else {
-                    anchorAngle = Math.round(angle);
+                    anchorAngle = Math.round(angle * 100) / 100;
                 }
 
                 anchorIndex = this.getIndexActive(anchorAngle);
