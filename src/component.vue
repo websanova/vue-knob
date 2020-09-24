@@ -159,7 +159,6 @@
                     option,
                     index = null;
 
-
                 for (; i < ii; i++) {
                     option = this._options[i];
 
@@ -203,8 +202,8 @@
             },
 
             value(val) {
-                if (this.slider) {
-                    this.processAngle(this.processValue(val));
+                if (this.slider && this.value !== val) {
+                    this.processAngle(val);
                 }
             }
         },
