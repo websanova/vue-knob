@@ -7,6 +7,7 @@
             ['knob-' + size]: size,
             ['knob-' + variant]: variant,
         }"
+        @click="$emit('click')"
     >
         <div
             v-for="(option, index) in _options"
