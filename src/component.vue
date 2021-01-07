@@ -30,7 +30,7 @@
                 v-bind:style="{
                     transform: 'rotate(-' + option.angle + 'deg)'
                 }"
-                v-on:click.stop="toggle(index)"
+                v-on:click.stop="onClickLabel(index)"
             >
                 <div
                     v-html="option.label"
@@ -396,6 +396,12 @@
 
                     return value;
                 }
+            },
+
+            onClickLabel(index) {
+                this.toggle(index);
+                
+                this.$emit('click');
             },
 
             onDragStart($e) {
