@@ -2,6 +2,7 @@
     <div
         class="knob"
         v-bind:class="{
+            'disabled': disabled,
             'dragging': isDragging,
             ['knob-' + size]: size,
             ['knob-' + variant]: variant,
@@ -78,6 +79,11 @@
 
             size: {
                 default: ''
+            },
+
+            disabled: {
+                type: Boolean,
+                default: false
             },
 
             options: {
@@ -237,6 +243,10 @@
             toggle(index) {
                 var option;
 
+                if (this.disabled) {
+                    return;
+                }
+
                 if (index === undefined) {
                     index = this.options[this._index + 1] ? this._index + 1 : 0;
                 }
@@ -388,7 +398,13 @@
             },
 
             onDragStart($e) {
-                var anchor = this.getOffset(document.getElementById('knob-dial-anchor-' + this._id));
+                var anchor;
+
+                if (this.disabled) {
+                    return;
+                }
+
+                anchor = this.getOffset(document.getElementById('knob-dial-anchor-' + this._id));
 
                 this.drag = {
                     x: anchor.x,
