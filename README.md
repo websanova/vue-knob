@@ -7,13 +7,7 @@ A simple, light weight and intuitive knob component for Vue.js.
 
 If you like this component please consider sponsoring.
 
-* [GitHub](https://github.com/sponsors/websanova)
 * [Patreon](https://patreon.com/websanova)
-
-
-## Demo
-
-Check the [live demo](https://vue-knob.websanova.com) to see vue-knob in action.
 
 
 ## Issues
